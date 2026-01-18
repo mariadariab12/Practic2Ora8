@@ -7,6 +7,7 @@ public class Constants {
     final public static String EMPTY_KEYWORD_ERROR_MESSAGE = "Prefix text cannot be empty!";
 
     final public static String AUTOCOMPLETE_ADDRESS = "https://www.google.com/complete/search?client=chrome&q=";
+
     final public static String MIME_TYPE = "text/html";
     final public static String CHARACTER_ENCODING = "UTF-8";
 

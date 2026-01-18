@@ -27,16 +27,16 @@ public class AutocompleteAsyncTask extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected String doInBackground(String... prefix) {
         HttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(Constants.AUTOCOMPLETE_ADDRESS + params[0]);
+        HttpGet httpGet = new HttpGet(Constants.AUTOCOMPLETE_ADDRESS + prefix[0].toString());
         ResponseHandler<String> responseHandler = new BasicResponseHandler();
         try {
             return httpClient.execute(httpGet, responseHandler);
         } catch (ClientProtocolException clientProtocolException) {
-            Log.e(Constants.TAG, clientProtocolException.getMessage());
+            Log.i(Constants.TAG, clientProtocolException.getMessage());
         } catch (IOException ioException) {
-            Log.e(Constants.TAG, ioException.getMessage());
+            Log.i(Constants.TAG, ioException.getMessage());
         }
         return null;
     }
@@ -49,14 +49,13 @@ public class AutocompleteAsyncTask extends AsyncTask<String, Void, String> {
         }
 
         try {
-            // 🔹 Exemplu: parsezi JSON-ul
-            JSONObject jsonObject = new JSONObject(content);
+            JSONArray jsonarray = new JSONArray(content);
 
-            // ⚠️ EXEMPLU – adaptezi dupa structura reala a JSON-ului tau
-            JSONArray suggestions = jsonObject.getJSONArray("suggestions");
+            JSONArray suggestions = jsonarray.getJSONArray(1);
 
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < suggestions.length(); i++) {
+                Log.i(Constants.TAG, suggestions.getString(i));
                 result.append(suggestions.getString(i)).append("\n");
             }
 
